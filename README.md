@@ -4,7 +4,7 @@
 
 - 🌐 [LinkedIn](https://www.linkedin.com/in/mingbo-feng-198556257/)
 - 📫 [Email](mailto:mingbao@ualberta.ca)
-- 📚 Currently studying at [University of Alberta]
+- 📚 Currently studying at [University of Alberta](https://www.ualberta.ca/index.html)
 
 ## Skills
 

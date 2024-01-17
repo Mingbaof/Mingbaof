@@ -2,7 +2,7 @@
 
 ## About Me
 
-- 🌐 [LinkedIn]([https://www.yourwebsite.com](https://www.linkedin.com/in/mingbo-feng-198556257/))
+- 🌐 [LinkedIn](https://www.linkedin.com/in/mingbo-feng-198556257/)
 - 📫 [Email](mailto:mingbao@ualberta.ca)
 - 📚 Currently studying at [University of Alberta]
 
@@ -14,9 +14,9 @@
 
 ## Projects
 
-- 🚀 [Project 1](https://github.com/your-username/project-1)
-- 🌐 [Project 2](https://github.com/your-username/project-2)
-- ⚙️ [Project 3](https://github.com/your-username/project-3)
+- 🚀 [CatchTheCode](https://github.com/CMPUT301W23T35/CatchTheCode.git)
+- ⚙️ [visMind](https://github.com/NATHACK-STEAMROLLER/EEGImage.git)
+<!-- - ⚙️ [Project 3](https://github.com/Mingbaof/-Text-Classification-Machine-Learning.git) -->
 
 ## GitHub Stats
 

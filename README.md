@@ -9,7 +9,7 @@
 ## Skills
 
 - 💻 **Programming Languages:** Python, Java, C/C++, RISC-V, Julia, HTML/CSS, C#, SQL
-- 🛠️ **Technologies:** Android Studio, JUnit, NumPy, matplotlib, Git Version Control, Unix/Linux, LaTeX, MATLAB
+- 🛠️ **Technologies:** Android Studio, JUnit, NumPy, matplotlib, Git Version Control, Unix/Linux, LaTeX, scikit-learn, MATLAB
   
 
 ## Projects

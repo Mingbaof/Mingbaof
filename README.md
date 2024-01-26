@@ -1,4 +1,4 @@
-# Hello, I'm Mingbaof! 👋
+# Hello, I'm Mingbo! 👋
 
 ## About Me
 

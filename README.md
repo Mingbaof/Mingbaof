@@ -2,7 +2,7 @@
 
 ## About Me
 
-- 📚 Currently pursuing a degree in **Honors in Computing Science** at [University of Alberta](https://www.ualberta.ca/index.html)
+- 📚 Currently pursuing a degree of **Honors in Computing Science** at [University of Alberta](https://www.ualberta.ca/index.html)
 - 🌐 [LinkedIn](https://www.linkedin.com/in/mingbo-feng-198556257/)
 - 📫 [Email](mailto:mingbao@ualberta.ca)
 

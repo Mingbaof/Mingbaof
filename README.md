@@ -9,7 +9,8 @@
 ## Skills
 
 - 💻 **Programming Languages:** Python, Java, C/C++, HTML/CSS, LaTeX, SQLite, MATLAB
-- 🛠️ **Technologies:** Android Studio, JUnit, NumPy, Matplotlib, Git Version Control, Unix/Linux, Scikit-learn, MangoDB, Django, Heroku
+- 🛠️ **Technologies & Frameworks:** React, Redux, Mantine, Django, Node.js, Express.js, gRPC, JUnit, TestComplete,
+Scikit-learn, NumPy, Matplotlib, MongoDB
   
 
 ## Projects

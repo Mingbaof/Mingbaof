@@ -18,11 +18,11 @@ Scikit-learn, NumPy, Matplotlib, MongoDB
 - 🚀 [CatchTheCode](https://github.com/CMPUT301W23T35/CatchTheCode.git)
 - ⚙️ [visMind](https://github.com/NATHACK-STEAMROLLER/EEGImage.git)
 <!-- - ⚙️ [Project 3](https://github.com/Mingbaof/-Text-Classification-Machine-Learning.git) -->
-
+<!--
 ## Connect with Me
 
 - [LinkedIn](https://www.linkedin.com/in/mingbo-feng-198556257/)
-
+-->
 
 
 

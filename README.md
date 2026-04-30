@@ -22,7 +22,7 @@
 
 ## 🏄 About Me
 
-<img align="right" alt="Coding by the Ocean" width="300" src="./assets/coding-ocean.png">
+<img align="right" alt="Coding by the Ocean" width="300" src="./assets/coding-ocean.svg">
 
 <div>
 
@@ -32,8 +32,8 @@ const mingbo = {
   school: "University of Alberta",
   hometown: "ZhuHai, Guangdong, China",
   location: "Edmonton, AB, Canada",
-  industries: ["MedTech 🏥", "FinTech 💳"],
-  vibe: "Ocean breeze & clean code 🐚",
+  industries: ["MedTech", "FinTech"],
+  vibe: "Ocean breeze & clean code",
 };
 ```
 

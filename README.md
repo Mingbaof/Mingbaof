@@ -22,7 +22,7 @@
 
 ## 🌊 About Me
 
-<img align="right" alt="Coding by the Ocean" width="300" src="./assets/coding-ocean.svg">
+<img align="right" alt="Coding by the Ocean" width="300" src="./assets/coding-ocean.png">
 
 <div>
 
@@ -30,7 +30,7 @@
 const mingbo = {
   education: "BSc Honors in Computing Science",
   school: "University of Alberta",
-  hometown: "ZhuHai, Guangdong, China 🌊",
+  hometown: "ZhuHai, Guangdong, China",
   location: "Edmonton, AB, Canada",
   industries: ["MedTech 🏥", "FinTech 💳"],
   vibe: "Ocean breeze & clean code 🐚",
@@ -91,7 +91,7 @@ const mingbo = {
 ## 📊 Most Used Languages
 
 <div align="center">
-  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mingbaof&layout=donut-vertical&theme=transparent&hide_border=true&langs_count=8&title_color=0077B6&text_color=48CAE4&bg_color=00000000" alt="Top Languages" />
+  <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=Mingbaof&layout=donut-vertical&theme=transparent&hide_border=true&hide_title=true&langs_count=8&title_color=0077B6&text_color=48CAE4&bg_color=00000000" alt="Top Languages" />
 </div>
 
 ---
@@ -100,19 +100,15 @@ const mingbo = {
 
 <div align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=Mingbaof&theme=react-dark&hide_border=true&area=true&color=48CAE4&line=0077B6&point=CAF0F8&area_color=023E8A&custom_title=Riding%20the%20Contribution%20Waves%20%F0%9F%8C%8A" />
-    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=Mingbaof&theme=minimal&hide_border=true&area=true&color=0077B6&line=023E8A&point=48CAE4&area_color=CAF0F8&custom_title=Riding%20the%20Contribution%20Waves%20%F0%9F%8C%8A" />
-    <img src="https://github-readme-activity-graph.vercel.app/graph?username=Mingbaof&theme=react-dark&hide_border=true&area=true&color=48CAE4&line=0077B6&point=CAF0F8&area_color=023E8A&custom_title=Riding%20the%20Contribution%20Waves%20%F0%9F%8C%8A" width="95%" alt="Contribution Graph" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=Mingbaof&theme=react-dark&hide_border=true&area=true&radius=16&color=48CAE4&line=0077B6&point=CAF0F8&area_color=023E8A&custom_title=Riding%20the%20Contribution%20Waves%20%F0%9F%8C%8A" />
+    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=Mingbaof&theme=minimal&hide_border=true&area=true&radius=16&color=0077B6&line=023E8A&point=48CAE4&area_color=CAF0F8&custom_title=Riding%20the%20Contribution%20Waves%20%F0%9F%8C%8A" />
+    <img src="https://github-readme-activity-graph.vercel.app/graph?username=Mingbaof&theme=react-dark&hide_border=true&area=true&radius=16&color=48CAE4&line=0077B6&point=CAF0F8&area_color=023E8A&custom_title=Riding%20the%20Contribution%20Waves%20%F0%9F%8C%8A" width="95%" alt="Contribution Graph" />
   </picture>
 </div>
 
 <!-- Snake animation - dynamic contribution graph -->
 <div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Mingbaof/Mingbaof/output/github-snake-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/Mingbaof/Mingbaof/output/github-snake.svg" />
-    <img alt="Snake animation" src="https://raw.githubusercontent.com/Mingbaof/Mingbaof/output/github-snake-dark.svg" width="100%" />
-  </picture>
+  <img src="https://raw.githubusercontent.com/Mingbaof/Mingbaof/output/github-snake-dark.svg" alt="Snake animation" width="100%" />
 </div>
 
 ---

@@ -20,7 +20,7 @@
 
 ---
 
-## 🌊 About Me
+## 🏄 About Me
 
 <img align="right" alt="Coding by the Ocean" width="300" src="./assets/coding-ocean.png">
 
@@ -39,11 +39,11 @@ const mingbo = {
 
 </div>
 
-#### 🏥 MedTech — Medical Imaging
-> Building & testing software for cutting-edge medical imaging devices — ensuring reliability, regulatory compliance, and quality in systems that impact patient care.
+#### 🏥 MedTech
+> Built and tested software for medical imaging devices. Lots of focus on reliability, regulatory compliance, and making sure things work when it matters most.
 
-#### 💳 FinTech — Financial Technology
-> Developing & validating software in fast-paced fintech environments — delivering secure, scalable solutions for modern financial services.
+#### 💳 FinTech
+> Worked on software for financial services, writing secure and scalable code in a pretty fast-moving environment.
 
 <br clear="right"/>
 
@@ -96,19 +96,10 @@ const mingbo = {
 
 ---
 
-## 🌊 Contribution Waves
+## 🐚 Contribution Waves
 
 <div align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=Mingbaof&theme=react-dark&hide_border=true&area=true&radius=16&color=48CAE4&line=0077B6&point=CAF0F8&area_color=023E8A&custom_title=Riding%20the%20Contribution%20Waves%20%F0%9F%8C%8A" />
-    <source media="(prefers-color-scheme: light)" srcset="https://github-readme-activity-graph.vercel.app/graph?username=Mingbaof&theme=minimal&hide_border=true&area=true&radius=16&color=0077B6&line=023E8A&point=48CAE4&area_color=CAF0F8&custom_title=Riding%20the%20Contribution%20Waves%20%F0%9F%8C%8A" />
-    <img src="https://github-readme-activity-graph.vercel.app/graph?username=Mingbaof&theme=react-dark&hide_border=true&area=true&radius=16&color=48CAE4&line=0077B6&point=CAF0F8&area_color=023E8A&custom_title=Riding%20the%20Contribution%20Waves%20%F0%9F%8C%8A" width="95%" alt="Contribution Graph" />
-  </picture>
-</div>
-
-<!-- Snake animation - dynamic contribution graph -->
-<div align="center">
-  <img src="https://raw.githubusercontent.com/Mingbaof/Mingbaof/output/github-snake-dark.svg" alt="Snake animation" width="100%" />
+  <img src="https://ghchart.rshah.org/0077B6/Mingbaof" alt="Contribution Chart"/>
 </div>
 
 ---

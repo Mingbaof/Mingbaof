@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mingbo Feng | Interactive Beach</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --sky-top: #00b4ff;
+            --sky-bottom: #c8f790;
+            --ocean-deep: #0a6dbf;
+            --ocean-mid: #1a85d8;
+            --ocean-shallow: #4cc9f0;
+            --sand: #f5e8b0;
+            --sand-dark: #e0cc84;
+            --text-dark: #1a365d;
+            --ui-bg: rgba(255, 255, 255, 0.93);
+            --foam: rgba(255, 255, 255, 0.92);
+        }
+
+        * { box-sizing: border-box; }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'VT323', monospace;
+            overflow: hidden;
+            color: var(--text-dark);
+            background: #00b4ff;
+        }
+
+        .scene {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* ========================
+           SKY
+        ======================== */
+        .sky {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 45%;
+            background: linear-gradient(to bottom, #00b4ff 0%, #4dcfff 60%, #c8f790 100%);
+        }
+
+        .cloud {
+            position: absolute;
+            image-rendering: pixelated;
+        }
+        .cloud svg { display: block; }
+
+        /* ========================
+           OCEAN — layered
+        ======================== */
+        .ocean {
+            position: absolute;
+            top: 38%;
+            left: 0; right: 0;
+            height: 24%;
+            overflow: hidden;
+        }
+
+        .ocean-body {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to bottom, #0a6dbf 0%, #1a85d8 50%, #3ab4ee 100%);
+        }
+
+        .ocean-sparkles {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 50%;
+            overflow: hidden;
+        }
+
+        .ocean-stripes {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: repeating-linear-gradient(
+                to bottom,
+                transparent 0px,
+                transparent 6px,
+                rgba(255,255,255,0.04) 6px,
+                rgba(255,255,255,0.04) 8px
+            );
+        }
+
+        /* ========================
+           BEACH / SAND
+        ======================== */
+        .beach {
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 42%;
+            background: var(--sand);
+        }
+
+        .beach::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle, #d8bb72 1px, transparent 1px),
+                radial-gradient(circle, #e0cc84 1px, transparent 1px);
+            background-size: 18px 18px, 11px 11px;
+            background-position: 0 0, 9px 9px;
+            opacity: 0.45;
+        }
+
+        .wet-sand {
+            position: absolute;
+            top: 0px; /* Changed from -8px to remove the sand gap */
+            left: 0; right: 0;
+            height: 36px; /* Increased slightly to maintain visual thickness */
+            background: linear-gradient(to bottom, #c8a850 0%, var(--sand) 100%);
+            opacity: 0.5;
+        }
+
+        /* ========================
+           TIDE CLIPPER (THE FIX)
+        ======================== */
+        /* This container strictly cuts off any water trying to reach above the 58% ocean seam */
+        .tide-clip {
+            position: absolute;
+            top: 58%; 
+            left: 0;
+            width: 100vw;
+            bottom: 0; /* Extends to bottom of screen */
+            overflow: hidden; /* Clips the flooding water */
+            z-index: 15;
+            pointer-events: none; /* Allows you to click the shells underneath */
+        }
+
+        /* ========================
+           TIDE — multi-layer wave system
+        ======================== */
+        .tide-system {
+            position: absolute;
+            left: 0;
+            top: 0; /* Anchored to the top of the tide-clip */
+            width: 100vw;
+            height: 70vh;
+            animation: tideFlow 7s ease-in-out infinite alternate;
+        }
+
+        @keyframes tideFlow {
+            0%   { transform: translateY(0%); }
+            30%  { transform: translateY(0%); }
+            70%  { transform: translateY(42%); }
+            100% { transform: translateY(42%); }
+        }
+
+        .tide-body {
+            position: absolute;
+            top: -200vh; left: 0; right: 0;
+            height: calc(200vh + 60px); /* Extends the blue water behind the waves */
+            background: linear-gradient(to bottom,
+                rgba(10, 90, 160, 0.97) 0%,
+                rgba(26, 113, 190, 0.94) 80%,
+                rgba(42, 149, 220, 0.90) 100%
+            );
+            z-index: -1; /* Pushes the solid water block behind the SVG crests */
+        }
+
+        .wave-row-1 {
+            position: absolute;
+            top: 0px; left: 0;
+            width: 200%;
+            height: 36px;
+            animation: waveSlide1 8s linear infinite; /* Increased from 5s */
+        }
+
+        .wave-row-2 {
+            position: absolute;
+            top: 16px; left: 0;
+            width: 200%;
+            height: 52px;
+            animation: waveSlide2 6s linear infinite; /* Increased from 3.5s */
+        }
+
+        .wave-foam {
+            position: absolute;
+            top: 52px; left: 0;
+            width: 200%;
+            height: 20px;
+            animation: waveSlide2 6s linear infinite; /* Matches .wave-row-2's new value */
+            opacity: 0.75;
+        }
+
+        @keyframes waveSlide1 {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        @keyframes waveSlide2 {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ========================
+           SUN MENU
+        ======================== */
+        .sun-nav {
+            position: absolute;
+            top: 28px;
+            left: 52px;
+            z-index: 100;
+        }
+
+        .sun {
+            width: 72px;
+            height: 72px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            position: relative;
+        }
+
+        .sun:hover { transform: scale(1.08) rotate(12deg); }
+
+        .sun-core {
+            position: absolute;
+            inset: 8px;
+            border-radius: 50%;
+            background: #fff9c4;
+            box-shadow:
+                0 0 0 4px #ffe566,
+                0 0 20px 8px rgba(255,229,100,0.6),
+                0 0 50px 20px rgba(255,220,50,0.3);
+            animation: sunPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes sunPulse {
+            0%, 100% { box-shadow: 0 0 0 4px #ffe566, 0 0 20px 8px rgba(255,229,100,0.5), 0 0 50px 20px rgba(255,220,50,0.25); }
+            50%       { box-shadow: 0 0 0 6px #ffda00, 0 0 28px 12px rgba(255,229,100,0.7), 0 0 70px 28px rgba(255,220,50,0.4); }
+        }
+
+        .sun-menu {
+            display: none;
+            position: absolute;
+            top: 82px;
+            left: 0;
+            background: var(--ui-bg);
+            border: 3px solid var(--text-dark);
+            padding: 0;
+            list-style: none;
+            margin: 0;
+            width: 164px;
+            box-shadow: 5px 5px 0px var(--text-dark);
+        }
+
+        .sun-nav:hover .sun-menu { display: block; }
+
+        .sun-menu li {
+            padding: 11px 16px;
+            font-size: 1.35rem;
+            cursor: pointer;
+            border-bottom: 2px dashed #bbb;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .sun-menu li:last-child { border-bottom: none; }
+        .sun-menu li:hover { background: var(--text-dark); color: #fff; }
+        .sun-menu li span { font-size: 1rem; }
+
+        /* ========================
+           HERO CARD
+        ======================== */
+        .hero {
+            position: absolute;
+            top: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            background: var(--ui-bg);
+            border: 3px solid var(--text-dark);
+            padding: 18px 28px;
+            box-shadow: 6px 6px 0px var(--text-dark);
+            z-index: 10;
+            width: 92%;
+            max-width: 660px;
+        }
+
+        .hero h1 { margin: 0; font-size: 3.6rem; letter-spacing: 1px; }
+        .hero .chinese-name { margin: 0; font-size: 1.1rem; color: #777; font-family: 'VT323', monospace; letter-spacing: 2px; }
+        .hero p { font-size: 1.5rem; line-height: 1.25; margin: 6px 0 0; }
+
+        /* ========================
+           SHELLS
+        ======================== */
+        .shells-container {
+            position: absolute;
+            bottom: 18%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 90px;
+            z-index: 5;
+        }
+
+        .shell-wrapper {
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.18s;
+            position: relative;
+        }
+
+        .shell-wrapper:hover { transform: translateY(-10px) scale(1.05); }
+        .shell-wrapper:hover .shell-label { background: var(--text-dark); color: #fff; }
+
+        .shell-sprite {
+            display: block;
+            width: 56px;
+            height: 56px;
+            margin: 0 auto 10px;
+            image-rendering: pixelated;
+        }
+
+        .shell-label {
+            background: var(--ui-bg);
+            border: 2px solid var(--text-dark);
+            padding: 3px 12px;
+            font-size: 1.3rem;
+            font-weight: bold;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 20;
+            transition: background 0.15s, color 0.15s;
+            white-space: nowrap;
+        }
+
+        .shell-wrapper.digging .shell-sprite {
+            animation: digBounce 0.4s ease-in-out 3;
+        }
+
+        @keyframes digBounce {
+            0%   { transform: translateY(0) rotate(0deg); }
+            30%  { transform: translateY(-6px) rotate(-8deg); }
+            60%  { transform: translateY(4px) rotate(4deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        .shell-shadow {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 44px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.12);
+            z-index: 3;
+        }
+
+        /* ========================
+           PIXEL BIRDS
+        ======================== */
+        .birds {
+            position: absolute;
+            top: 12%;
+            left: 30%;
+            z-index: 8;
+            animation: birdFly 18s linear infinite;
+        }
+
+        @keyframes birdFly {
+            0%   { transform: translateX(0) translateY(0); }
+            50%  { transform: translateX(120px) translateY(-20px); }
+            100% { transform: translateX(0) translateY(0); }
+        }
+
+        /* ========================
+           LOCATION BADGE
+        ======================== */
+        .location-badge {
+            position: absolute;
+            bottom: 6%;
+            right: 4%;
+            background: var(--ui-bg);
+            border: 2px solid var(--text-dark);
+            padding: 4px 12px;
+            font-size: 1.1rem;
+            color: #555;
+            box-shadow: 3px 3px 0px rgba(0,0,0,0.15);
+            z-index: 100;
+        }
+
+        /* ========================
+           SCROLL HINT
+        ======================== */
+        .scroll-hint {
+            position: absolute;
+            bottom: 2%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.1rem;
+            color: rgba(26,54,93,0.55);
+            z-index: 100;
+            animation: fadeHint 2.5s ease-in-out infinite;
+        }
+
+        @keyframes fadeHint {
+            0%, 100% { opacity: 0.4; }
+            50%       { opacity: 1; }
+        }
+
+        /* ========================
+           PIXEL STARFISH on sand
+        ======================== */
+        .starfish {
+            position: absolute;
+            z-index: 6;
+            image-rendering: pixelated;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="scene">
+
+    <div class="sky">
+        <div class="cloud" style="top:8%;left:15%;">
+            <svg width="110" height="40" viewBox="0 0 110 40" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated">
+                <rect x="20" y="24" width="70" height="12" fill="white" opacity="0.92"/>
+                <rect x="12" y="16" width="28" height="20" fill="white" opacity="0.92"/>
+                <rect x="36" y="10" width="32" height="26" fill="white" opacity="0.92"/>
+                <rect x="64" y="16" width="24" height="20" fill="white" opacity="0.92"/>
+                <rect x="84" y="22" width="16" height="14" fill="white" opacity="0.92"/>
+                <rect x="38" y="12" width="10" height="4" fill="white" opacity="0.4"/>
+                <rect x="20" y="18" width="8" height="3" fill="white" opacity="0.4"/>
+            </svg>
+        </div>
+
+        <div class="cloud" style="top:5%;right:18%;animation:birdFly 22s linear infinite reverse;">
+            <svg width="80" height="30" viewBox="0 0 80 30" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated">
+                <rect x="10" y="18" width="60" height="10" fill="white" opacity="0.88"/>
+                <rect x="8" y="12" width="22" height="16" fill="white" opacity="0.88"/>
+                <rect x="28" y="6" width="24" height="22" fill="white" opacity="0.88"/>
+                <rect x="50" y="12" width="18" height="16" fill="white" opacity="0.88"/>
+            </svg>
+        </div>
+
+        <div class="sun-nav">
+            <div class="sun" title="Navigation">
+                <svg width="72" height="72" viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" style="position:absolute;inset:0;image-rendering:pixelated">
+                    <rect x="34" y="2"  width="4" height="10" fill="#ffd600" rx="1"/>
+                    <rect x="34" y="60" width="4" height="10" fill="#ffd600" rx="1"/>
+                    <rect x="2"  y="34" width="10" height="4" fill="#ffd600" rx="1"/>
+                    <rect x="60" y="34" width="10" height="4" fill="#ffd600" rx="1"/>
+                    <rect x="13" y="10" width="4" height="9" fill="#ffd600" rx="1" transform="rotate(45 15 14)"/>
+                    <rect x="53" y="10" width="4" height="9" fill="#ffd600" rx="1" transform="rotate(-45 55 14)"/>
+                    <rect x="13" y="52" width="4" height="9" fill="#ffd600" rx="1" transform="rotate(-45 15 56)"/>
+                    <rect x="53" y="52" width="4" height="9" fill="#ffd600" rx="1" transform="rotate(45 55 56)"/>
+                </svg>
+                <div class="sun-core"></div>
+            </div>
+            <ul class="sun-menu">
+                <li><span>🧭</span> About Me</li>
+                <li><span>📄</span> Resume</li>
+                <li><span>✉️</span> Contact</li>
+            </ul>
+        </div>
+
+        <div class="hero">
+            <h1>Mingbo Feng</h1>
+            <div class="chinese-name">冯明宝 · Mingbao Feng</div>
+            <p>Software Developer building reliable software for MedTech, FinTech, automation, and full-stack systems.</p>
+        </div>
+
+        <div class="birds">
+            <svg width="60" height="20" viewBox="0 0 60 20" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated">
+                <path d="M4 10 Q8 5 12 10" stroke="#1a365d" stroke-width="2" fill="none" opacity="0.6"/>
+                <path d="M22 8 Q27 3 32 8" stroke="#1a365d" stroke-width="2" fill="none" opacity="0.5"/>
+                <path d="M40 12 Q44 8 48 12" stroke="#1a365d" stroke-width="2" fill="none" opacity="0.4"/>
+            </svg>
+        </div>
+    </div>
+
+    <div class="ocean">
+        <div class="ocean-body"></div>
+        <div class="ocean-stripes"></div>
+    </div>
+
+    <div class="beach">
+        <div class="wet-sand"></div>
+
+        <div class="starfish" style="bottom:30%;left:12%;">
+            <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated">
+                <rect x="10" y="0"  width="4" height="12" fill="#ff8c6b"/>
+                <rect x="10" y="12" width="4" height="12" fill="#ff7a55"/>
+                <rect x="0"  y="10" width="12" height="4" fill="#ff7a55"/>
+                <rect x="12" y="10" width="12" height="4" fill="#ff7a55"/>
+                <rect x="3"  y="3"  width="4" height="4"  fill="#ff8c6b" transform="rotate(45 5 5)"/>
+                <rect x="17" y="3"  width="4" height="4"  fill="#ff8c6b" transform="rotate(45 19 5)"/>
+                <rect x="3"  y="17" width="4" height="4"  fill="#ff8c6b" transform="rotate(45 5 19)"/>
+                <rect x="17" y="17" width="4" height="4"  fill="#ff8c6b" transform="rotate(45 19 19)"/>
+                <rect x="10" y="10" width="4" height="4"  fill="#ff5533"/>
+            </svg>
+        </div>
+
+        <div class="starfish" style="bottom:15%;right:20%;">
+            <svg width="16" height="16" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg" style="image-rendering:pixelated">
+                <rect x="6" y="0" width="4" height="8" fill="#ffb347"/>
+                <rect x="6" y="8" width="4" height="8" fill="#ffb347"/>
+                <rect x="0" y="6" width="8" height="4" fill="#ffb347"/>
+                <rect x="8" y="6" width="8" height="4" fill="#ffb347"/>
+                <rect x="6" y="6" width="4" height="4" fill="#ff8000"/>
+            </svg>
+        </div>
+
+        <div class="shells-container">
+
+            <div class="shell-wrapper" onclick="digShell(this)">
+                <div class="shell-shadow"></div>
+                <svg class="shell-sprite" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="28" cy="52" rx="18" ry="4" fill="rgba(0,0,0,0.12)"/>
+                    <rect x="10" y="20" width="36" height="24" rx="2" fill="#f5e6cc"/>
+                    <rect x="14" y="16" width="28" height="28" rx="2" fill="#f0d9aa"/>
+                    <rect x="18" y="14" width="20" height="4"  fill="#e8ca8a"/>
+                    <rect x="20" y="12" width="16" height="4"  fill="#ddb96a"/>
+                    <rect x="22" y="10" width="12" height="4"  fill="#c99e50"/>
+                    <rect x="25" y="8"  width="6"  height="4"  fill="#b88840"/>
+                    <rect x="27" y="6"  width="4"  height="4"  fill="#a07030"/>
+                    <rect x="28" y="4"  width="2"  height="4"  fill="#8a5c22"/>
+                    <rect x="14" y="22" width="28" height="2" fill="#e0c080" opacity="0.7"/>
+                    <rect x="14" y="28" width="28" height="2" fill="#e0c080" opacity="0.7"/>
+                    <rect x="14" y="34" width="28" height="2" fill="#e0c080" opacity="0.7"/>
+                    <rect x="10" y="30" width="12" height="12" rx="1" fill="#c07850"/>
+                    <rect x="12" y="32" width="8"  height="8"  fill="#a0604a"/>
+                    <rect x="13" y="33" width="6"  height="6"  fill="#7a3a28"/>
+                    <rect x="14" y="18" width="20" height="2" fill="rgba(255,255,255,0.5)"/>
+                    <rect x="22" y="14" width="8"  height="2" fill="rgba(255,255,255,0.4)"/>
+                    <rect x="16" y="44" width="24" height="4"  fill="#ddb96a"/>
+                    <rect x="20" y="46" width="16" height="4"  fill="#c99e50"/>
+                </svg>
+                <div class="shell-label">About Me</div>
+            </div>
+
+            <div class="shell-wrapper" onclick="digShell(this)">
+                <div class="shell-shadow"></div>
+                <svg class="shell-sprite" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="28" cy="52" rx="18" ry="4" fill="rgba(0,0,0,0.12)"/>
+                    <rect x="10" y="26" width="36" height="20" rx="1" fill="#a8cce8"/>
+                    <rect x="12" y="22" width="32" height="24" rx="1" fill="#b8d8f0"/>
+                    <rect x="27" y="14" width="2" height="32" fill="#7ab0d8" opacity="0.8"/>
+                    <rect x="22" y="16" width="2" height="30" fill="#7ab0d8" opacity="0.7" transform="rotate(-10 23 42)"/>
+                    <rect x="32" y="16" width="2" height="30" fill="#7ab0d8" opacity="0.7" transform="rotate(10 33 42)"/>
+                    <rect x="16" y="18" width="2" height="28" fill="#7ab0d8" opacity="0.6" transform="rotate(-22 17 44)"/>
+                    <rect x="38" y="18" width="2" height="28" fill="#7ab0d8" opacity="0.6" transform="rotate(22 39 44)"/>
+                    <rect x="11" y="22" width="2" height="24" fill="#7ab0d8" opacity="0.5" transform="rotate(-34 12 44)"/>
+                    <rect x="43" y="22" width="2" height="24" fill="#7ab0d8" opacity="0.5" transform="rotate(34 44 44)"/>
+                    <rect x="10" y="12" width="6" height="12" rx="3" fill="#c8e4f8"/>
+                    <rect x="18" y="8"  width="6" height="16" rx="3" fill="#c8e4f8"/>
+                    <rect x="26" y="6"  width="6" height="18" rx="3" fill="#d0e8ff"/>
+                    <rect x="34" y="8"  width="6" height="16" rx="3" fill="#c8e4f8"/>
+                    <rect x="42" y="12" width="6" height="12" rx="3" fill="#c8e4f8"/>
+                    <rect x="22" y="44" width="12" height="6" rx="2" fill="#5890b8"/>
+                    <rect x="24" y="46" width="8"  height="4" rx="1" fill="#3870a0"/>
+                    <rect x="14" y="24" width="14" height="2" fill="rgba(255,255,255,0.5)"/>
+                </svg>
+                <div class="shell-label">Resume</div>
+            </div>
+
+            <div class="shell-wrapper" onclick="digShell(this)">
+                <div class="shell-shadow"></div>
+                <svg class="shell-sprite" viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg">
+                    <ellipse cx="28" cy="52" rx="18" ry="4" fill="rgba(0,0,0,0.12)"/>
+                    <rect x="12" y="24" width="32" height="24" rx="2" fill="#f0b0c0"/>
+                    <rect x="14" y="20" width="28" height="28" rx="2" fill="#f8c0cc"/>
+                    <rect x="14" y="26" width="28" height="3" fill="#e890a8" opacity="0.8"/>
+                    <rect x="14" y="32" width="28" height="3" fill="#e890a8" opacity="0.8"/>
+                    <rect x="14" y="38" width="28" height="3" fill="#e890a8" opacity="0.8"/>
+                    <rect x="17" y="16" width="22" height="6" rx="1" fill="#f4a8bc"/>
+                    <rect x="20" y="12" width="16" height="6" rx="1" fill="#ec90a8"/>
+                    <rect x="23" y="8"  width="10" height="6" rx="1" fill="#e07890"/>
+                    <rect x="25" y="5"  width="6"  height="5" rx="1" fill="#c86078"/>
+                    <rect x="26" y="3"  width="4"  height="4" fill="#a84a60"/>
+                    <rect x="12" y="34" width="10" height="12" rx="1" fill="#c87890"/>
+                    <rect x="13" y="36" width="8"  height="8"  fill="#a85870"/>
+                    <rect x="14" y="37" width="6"  height="6"  fill="#804055"/>
+                    <rect x="30" y="22" width="3" height="3" fill="#e06080" opacity="0.7"/>
+                    <rect x="36" y="28" width="3" height="3" fill="#e06080" opacity="0.6"/>
+                    <rect x="32" y="36" width="3" height="3" fill="#e06080" opacity="0.5"/>
+                    <rect x="16" y="20" width="16" height="2" fill="rgba(255,255,255,0.5)"/>
+                    <rect x="16" y="46" width="24" height="4"  fill="#e8a0b0"/>
+                    <rect x="20" y="48" width="16" height="4"  fill="#d88898"/>
+                </svg>
+                <div class="shell-label">Contact</div>
+            </div>
+
+        </div>
+
+        <div class="location-badge">📍 Edmonton, AB · Canada</div>
+    </div>
+
+    <div class="tide-clip">
+        <div class="tide-system">
+
+            <svg class="wave-row-1" viewBox="0 0 800 36" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="800" height="16" fill="rgba(50,140,210,0.75)"/>
+                <rect x="0"   y="16" width="24" height="12" fill="rgba(70,155,215,0.70)"/>
+                <rect x="24"  y="16" width="16" height="8"  fill="rgba(70,155,215,0.65)"/>
+                <rect x="56"  y="16" width="32" height="14" fill="rgba(70,155,215,0.70)"/>
+                <rect x="104" y="16" width="16" height="8"  fill="rgba(70,155,215,0.65)"/>
+                <rect x="136" y="16" width="40" height="16" fill="rgba(70,155,215,0.70)"/>
+                <rect x="192" y="16" width="24" height="10" fill="rgba(70,155,215,0.65)"/>
+                <rect x="232" y="16" width="32" height="12" fill="rgba(70,155,215,0.70)"/>
+                <rect x="280" y="16" width="20" height="8"  fill="rgba(70,155,215,0.65)"/>
+                <rect x="316" y="16" width="36" height="16" fill="rgba(70,155,215,0.70)"/>
+                <rect x="368" y="16" width="28" height="10" fill="rgba(70,155,215,0.65)"/>
+                <rect x="412" y="16" width="24" height="12" fill="rgba(70,155,215,0.70)"/>
+                <rect x="452" y="16" width="16" height="8"  fill="rgba(70,155,215,0.65)"/>
+                <rect x="484" y="16" width="40" height="16" fill="rgba(70,155,215,0.70)"/>
+                <rect x="540" y="16" width="24" height="10" fill="rgba(70,155,215,0.65)"/>
+                <rect x="580" y="16" width="32" height="12" fill="rgba(70,155,215,0.70)"/>
+                <rect x="628" y="16" width="20" height="8"  fill="rgba(70,155,215,0.65)"/>
+                <rect x="664" y="16" width="36" height="16" fill="rgba(70,155,215,0.70)"/>
+                <rect x="716" y="16" width="28" height="10" fill="rgba(70,155,215,0.65)"/>
+                <rect x="760" y="16" width="24" height="12" fill="rgba(70,155,215,0.70)"/>
+                <rect x="2"   y="26" width="18" height="4" fill="rgba(255,255,255,0.55)"/>
+                <rect x="58"  y="28" width="26" height="3" fill="rgba(255,255,255,0.50)"/>
+                <rect x="138" y="30" width="32" height="3" fill="rgba(255,255,255,0.55)"/>
+                <rect x="318" y="30" width="28" height="3" fill="rgba(255,255,255,0.55)"/>
+                <rect x="486" y="30" width="32" height="3" fill="rgba(255,255,255,0.50)"/>
+                <rect x="666" y="30" width="28" height="3" fill="rgba(255,255,255,0.55)"/>
+            </svg>
+            
+            <svg class="wave-row-2" viewBox="0 0 800 52" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="0" y="0" width="800" height="22" fill="rgba(60,165,230,0.88)"/>
+                <rect x="0"   y="22" width="32" height="18" fill="rgba(85,178,232,0.84)"/>
+                <rect x="32"  y="22" width="20" height="12" fill="rgba(85,178,232,0.78)"/>
+                <rect x="64"  y="22" width="44" height="22" fill="rgba(85,178,232,0.84)"/>
+                <rect x="108" y="22" width="16" height="12" fill="rgba(85,178,232,0.75)"/>
+                <rect x="140" y="22" width="48" height="28" fill="rgba(85,178,232,0.84)"/>
+                <rect x="200" y="22" width="28" height="16" fill="rgba(85,178,232,0.78)"/>
+                <rect x="244" y="22" width="36" height="22" fill="rgba(85,178,232,0.84)"/>
+                <rect x="292" y="22" width="24" height="14" fill="rgba(85,178,232,0.75)"/>
+                <rect x="332" y="22" width="48" height="28" fill="rgba(85,178,232,0.84)"/>
+                <rect x="392" y="22" width="32" height="18" fill="rgba(85,178,232,0.78)"/>
+                <rect x="440" y="22" width="40" height="22" fill="rgba(85,178,232,0.84)"/>
+                <rect x="492" y="22" width="20" height="12" fill="rgba(85,178,232,0.75)"/>
+                <rect x="528" y="22" width="48" height="28" fill="rgba(85,178,232,0.84)"/>
+                <rect x="588" y="22" width="28" height="16" fill="rgba(85,178,232,0.78)"/>
+                <rect x="632" y="22" width="36" height="22" fill="rgba(85,178,232,0.84)"/>
+                <rect x="680" y="22" width="24" height="14" fill="rgba(85,178,232,0.75)"/>
+                <rect x="720" y="22" width="48" height="28" fill="rgba(85,178,232,0.84)"/>
+                <rect x="776" y="22" width="24" height="18" fill="rgba(85,178,232,0.78)"/>
+                <rect x="2"   y="36" width="28" height="5" fill="rgba(255,255,255,0.90)"/>
+                <rect x="4"   y="40" width="22" height="4" fill="rgba(255,255,255,0.96)"/>
+                <rect x="66"  y="40" width="38" height="5" fill="rgba(255,255,255,0.90)"/>
+                <rect x="68"  y="44" width="30" height="4" fill="rgba(255,255,255,0.96)"/>
+                <rect x="142" y="44" width="42" height="5" fill="rgba(255,255,255,0.90)"/>
+                <rect x="144" y="48" width="34" height="3" fill="rgba(255,255,255,0.96)"/>
+                <rect x="334" y="44" width="42" height="5" fill="rgba(255,255,255,0.90)"/>
+                <rect x="336" y="48" width="34" height="3" fill="rgba(255,255,255,0.96)"/>
+                <rect x="530" y="44" width="42" height="5" fill="rgba(255,255,255,0.90)"/>
+                <rect x="532" y="48" width="34" height="3" fill="rgba(255,255,255,0.96)"/>
+                <rect x="722" y="44" width="42" height="5" fill="rgba(255,255,255,0.90)"/>
+                <rect x="724" y="48" width="34" height="3" fill="rgba(255,255,255,0.96)"/>
+                <rect x="20"  y="36" width="6" height="4" fill="rgba(255,255,255,0.65)"/>
+                <rect x="88"  y="38" width="4" height="4" fill="rgba(255,255,255,0.60)"/>
+                <rect x="172" y="34" width="6" height="4" fill="rgba(255,255,255,0.65)"/>
+                <rect x="228" y="36" width="4" height="4" fill="rgba(255,255,255,0.55)"/>
+                <rect x="268" y="36" width="6" height="4" fill="rgba(255,255,255,0.60)"/>
+                <rect x="356" y="38" width="6" height="4" fill="rgba(255,255,255,0.65)"/>
+                <rect x="420" y="36" width="4" height="4" fill="rgba(255,255,255,0.55)"/>
+                <rect x="464" y="34" width="6" height="4" fill="rgba(255,255,255,0.60)"/>
+                <rect x="548" y="38" width="6" height="4" fill="rgba(255,255,255,0.65)"/>
+                <rect x="612" y="36" width="4" height="4" fill="rgba(255,255,255,0.55)"/>
+                <rect x="656" y="34" width="6" height="4" fill="rgba(255,255,255,0.60)"/>
+                <rect x="744" y="38" width="6" height="4" fill="rgba(255,255,255,0.65)"/>
+            </svg>
+
+            <svg class="wave-foam" viewBox="0 0 800 20" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                <rect x="10"  y="0"  width="14" height="8"  rx="1" fill="rgba(255,255,255,0.72)"/>
+                <rect x="40"  y="4"  width="9"  height="6"  rx="1" fill="rgba(255,255,255,0.62)"/>
+                <rect x="72"  y="0"  width="18" height="10" rx="1" fill="rgba(255,255,255,0.78)"/>
+                <rect x="108" y="3"  width="11" height="7"  rx="1" fill="rgba(255,255,255,0.62)"/>
+                <rect x="148" y="0"  width="20" height="10" rx="1" fill="rgba(255,255,255,0.72)"/>
+                <rect x="196" y="2"  width="14" height="8"  rx="1" fill="rgba(255,255,255,0.66)"/>
+                <rect x="240" y="0"  width="16" height="10" rx="1" fill="rgba(255,255,255,0.72)"/>
+                <rect x="288" y="4"  width="11" height="6"  rx="1" fill="rgba(255,255,255,0.62)"/>
+                <rect x="320" y="0"  width="20" height="10" rx="1" fill="rgba(255,255,255,0.78)"/>
+                <rect x="368" y="2"  width="14" height="8"  rx="1" fill="rgba(255,255,255,0.72)"/>
+                <rect x="408" y="4"  width="9"  height="6"  rx="1" fill="rgba(255,255,255,0.62)"/>
+                <rect x="440" y="0"  width="18" height="10" rx="1" fill="rgba(255,255,255,0.78)"/>
+                <rect x="480" y="3"  width="11" height="7"  rx="1" fill="rgba(255,255,255,0.62)"/>
+                <rect x="520" y="0"  width="20" height="10" rx="1" fill="rgba(255,255,255,0.72)"/>
+                <rect x="568" y="2"  width="14" height="8"  rx="1" fill="rgba(255,255,255,0.66)"/>
+                <rect x="608" y="0"  width="16" height="10" rx="1" fill="rgba(255,255,255,0.72)"/>
+                <rect x="652" y="4"  width="11" height="6"  rx="1" fill="rgba(255,255,255,0.62)"/>
+                <rect x="688" y="0"  width="20" height="10" rx="1" fill="rgba(255,255,255,0.78)"/>
+                <rect x="736" y="2"  width="14" height="8"  rx="1" fill="rgba(255,255,255,0.72)"/>
+                <rect x="776" y="4"  width="9"  height="6"  rx="1" fill="rgba(255,255,255,0.62)"/>
+            </svg>
+
+            <div class="tide-body"></div>
+        </div>
+    </div>
+
+    <div class="scroll-hint">[ click a shell to explore ]</div>
+
+</div>
+
+<script>
+function digShell(wrapper) {
+    if (wrapper.classList.contains('digging')) return;
+    wrapper.classList.add('digging');
+    setTimeout(() => wrapper.classList.remove('digging'), 1300);
+}
+</script>
+
+</body>
+</html>

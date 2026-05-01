@@ -1,0 +1,222 @@
+%-------------------------
+% Resume in Latex
+% Author : Jake Gutierrez (Modified by Claude)
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+% Packages
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fontawesome5}
+\usepackage{xcolor}
+
+% Font selection
+\usepackage[sfdefault]{sourcesanspro}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage[T1]{fontenc}
+\renewcommand{\mddefault}{m} % Use medium weight as default
+\renewcommand{\bfdefault}{b} % Use bold weight for bold
+
+% Define colors
+\definecolor{primaryblue}{RGB}{0, 102, 204}
+\definecolor{darkgray}{RGB}{64, 64, 64}
+\definecolor{lightgray}{RGB}{128, 128, 128}
+\definecolor{hackathoncolor}{RGB}{34, 139, 34}
+\definecolor{courseworkcolor}{RGB}{138, 43, 226}
+
+% Page setup
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.6in}
+\addtolength{\textwidth}{1.2in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.4in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-8pt}\scshape\raggedright\large\color{primaryblue}
+}{}{0em}{}[\color{primaryblue}\titlerule \vspace{-5pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    \justifying{#1}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small\color{lightgray}#3} & \textit{\small\color{lightgray}#4} \\
+    \end{tabular*}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \vspace{-2pt}\item
+    \begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & \small#2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0in, label={}]\setlength{\itemsep}{0pt}\setlength{\parsep}{0pt}\setlength{\parskip}{0pt}}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}\setlength{\itemsep}{2pt}\setlength{\parsep}{2pt}\setlength{\parskip}{2pt}}
+\newcommand{\resumeItemListEnd}{\end{itemize}}
+
+% Enhanced project heading command
+\newcommand{\resumeProjectItem}[3]{
+    \vspace{-2pt}\item[]
+    \textbf{\color{darkgray}#1} \textbar{} \textit{\color{lightgray}#2}
+    \vspace{2pt}
+    #3
+}
+
+% New command for project tags
+\newcommand{\hackathontag}{\textcolor{hackathoncolor}{\textbf{[HACKATHON]}}}
+\newcommand{\courseworktag}{\textcolor{courseworkcolor}{\textbf{[COURSEWORK]}}}
+
+% Add justifying command for better text alignment
+\newcommand{\justifying}[1]{\raggedright\hyphenpenalty=1000\tolerance=1000\emergencystretch=3em#1}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    {\Huge \bfseries \color{darkgray} Mingbao Feng} \\ \vspace{8pt}
+    \color{darkgray}
+    \faMapMarker* \, Edmonton, AB \quad $|$ \quad
+    \faEnvelope \, \href{mailto:mingbao@ualberta.ca}{mingbao@ualberta.ca} \quad $|$ \quad
+    \faLinkedin \, \href{http://www.linkedin.com/in/mingbo-feng-198556257}{LinkedIn} \quad $|$ \quad
+    \faGithubSquare \, \href{https://github.com/Mingbaof}{GitHub}
+\end{center}
+\vspace{-10pt}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {University of Alberta}{Edmonton, AB}
+      {\textbf{Bachelor of Science (BSc), Honors in Computing Science}}{Graduation: Dec, 2025}
+      \resumeItemListStart
+            \resumeItem{Academic Honors: Graduated with First Class Honors(GPA >= 3.5), Jason Lang Scholarship (Academic Achievement Award)}
+
+            % \resumeItem{Relevant Courses: Software Engineering, Algorithm and Data Structure, Formal Systems and Logic, Object Oriented Programming, Operating System, Computer Organization and Architecture, Machine Learning, Reinforcement Learning, Database Management, Search and Planning in AI, Computer Visual Recognition, Web Applications and Architecture}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------PROGRAMMING SKILLS-----------
+
+\vspace{-1.5em}
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0in, label={}]
+    \small{\item{
+     \textbf{Programming Languages}{: Python, C++, TypeScript/JavaScript, HTML/CSS, SQL, Java/Kotlin} \\
+     \textbf{Technologies \& Frameworks}{: React/Redux, Django, Flask, Node.js, gRPC} \\
+     \textbf{Tools \& Platforms}{: Jira, Android Studio, VSCode, Git, Unix/Linux, VIM, Docker, TestComplete, Microsoft Office (Excel, Word, PowerPoint), Google Workspace (Docs, Sheets, Slides, Drive), Cursor, Claude Code} \\
+     % \textbf{Languages}{: English, Mandarin, Cantonese} \\
+    }}
+ \end{itemize}
+\vspace{-1.5em}
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+        {Software Developer Intern}{Dec. 2024 -- Dec.2025}
+        {\textbf{Pulse Medica Corp.}}{Edmonton, AB}
+        \textbf{Tech:} \textit{Python, Tkinter, TypeScript, React, Redux, Vite, gRPC, C++, GitHub, VirtualBox, FLIR Camera SDK, Zaber Motion Library}
+        \resumeItemListStart
+            \resumeItem{Spearheaded the full-cycle development of a \textbf{Python/Tkinter} tool suite by \textbf{collaborating directly with clients} to define SW requirements, create technical documentation, and design the solution. The deployed tools automated workflows(FLIR Camera with Zaber Stages), saving \textbf{10+ minutes per procedure and achieving 99\% accuracy.}}
+            \resumeItem{Implemented gRPC services and \textbf{C++} integrations within a \textbf{multithreaded} environment to orchestrate optics hardware checks. \textbf{Reduced repetitive pre-experiment validation time by 83\%} with reliable, repeatable runs.}
+            \resumeItem{Architected \textbf{GitHub Actions} CI/CD and Slack notifications. Automated linting, unit tests, packaging and NSIS installers. Cut deployment regression from \textbf{50\% to 30\%.} Improved release consistency and SQA throughput.}
+            \resumeItem{Developed a cross-team dependency installer with \textbf{TypeScript}, PowerShell Script and Python plus a \textbf{Vite/React} UI. Validated stability across scenarios using \textbf{VirtualBox} and \textbf{later adopted by 3 teams}, reducing setup time by 80\% and saving up to 6+ engineering hours per new hire.}
+            \resumeItem{Refactored TypeScript/React client with Redux. Reduced unnecessary re-renders and improved UI responsiveness for hardware-driven, experiment-heavy workflows. Lowering UI integration bugs by \textbf{21\% as tracked in Jira}.}
+
+      \resumeItemListEnd
+
+
+    \resumeSubheading
+        {Software Quality Assurance Intern}{May 2024 -- Dec. 2024}
+        {\textbf{Pulse Medica Corp.}}{Edmonton, AB}
+        \textbf{Tech:} \textit{Jira, Zephyr Scale, Playwright, TestComplete, HTML/CSS, PowerShell Script, GitHub, SQL/JQL, OCT, SLO, femtosecond laser systems}
+        \resumeItemListStart
+            \resumeItem{Joined as an \textbf{early(second)} team member in an Agile environment. Performed \textbf{on-site V\&V across 5 pre-clinical trials} for SLO, OCT and femtosecond-laser subsystems. Documented deviations and corrective actions for regulatory submissions.}
+            \resumeItem{Designed and implemented \textbf{50+ end-to-end test cases} with Playwright and TestComplete. Integrated Zephyr Scale API to centralize coverage and execution history. Increased automated test coverage from \textbf{0\% to 30\%}.}
+            \resumeItem{Optimized and refactored test cases to support parallel execution, improving overall test execution efficiency by \textbf{40\%} and reducing average regression cycle time from \textbf{5 hours to 3 hours}.}
+            \resumeItem{Led V\&V and bug-fix testing across multiple projects. Built Jira JQL/SQL dashboards and defect heat maps. Surfaced high-risk components early, \textbf{reducing go/no-go decision delays for the animal trail.}}
+            \resumeItem{Prepared Master Test Plan coverage and release regression reports. Ensured full traceability for Health Canada and FDA compliance audits, \textbf{achieving 100\% pass rate} with zero critical bugs.}
+            % \resumeItem{Responsible for \textbf{85\%+} of the test executions. Gated builds on critical checks and produced HTML/CSS emails for sprint-end stakeholder demos, improving release confidence and transparency.}
+      \resumeItemListEnd
+
+
+\resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+
+        \item[]%
+
+            \courseworktag \quad \href{https://youtu.be/N7T7FWU0Zkk?si=ZlZN2H4JFwARWsog}{\underline{\textbf{Full-stack Distributed Social Media Platform}}}\textbar{}
+            \emph{Django REST Framework, RESTful API, Python, PostgreSQL, Heroku, pytest, TypeScript, esbuild, OpenAPI/Swagger, Git}
+
+              \resumeItemListStart
+                \resumeItem{Led scooping of the project, built Agile delivery plan for a \textbf{6-person} team with CI, codespaces, branching, and \textbf{50+ user stories} backlog, maintaining on-track sprints and smooth collaboration.}
+                \resumeItem{Architected and deployed end-to-end federated social platform on \textbf{Heroku}, implementing CSRF protection and OpenAPI documentation for an 8-module Django codebase \textbf{across authenticated nodes}.}
+                \resumeItem{Optimized federation throughput via asynchronous requests and database query tuning, materially reducing propagation latency by \textbf{75\% }for multi-node networks.}
+                % \resumeItem{Implemented comprehensive pytest suite and OpenAPI docs across \textbf{8} apps, plus CSRF protection and node blocking, increasing release confidence and hardening cross-instance interactions.}
+              \resumeItemListEnd
+
+
+          % \hackathontag \quad {\href{https://youtu.be/pbElmmcgOXc?si=JUiHKuU44v7C7I0J}{\underline{\textbf{Human-Computer Interface Application}}} $|$ \emph{Python, Django, HTML/CSS, Git, API Integration(Stability AI)}}{}
+          % \resumeItemListStart
+
+          %   \resumeItem{Developed a Python/Django web application to analyze and visualize live EEG data from an InteraXon Muse2 brain-sensing headband during the natHACKS competition.}
+          %   \resumeItem{Awarded a \textbf{sponsored InteraXon Muse2} device for project innovation and technical execution.}
+          % \resumeItemListEnd
+
+          % \courseworktag \quad \href{https://github.com/CMPUT301W23T35/CatchTheCode.git}{\underline{\textbf{Online Android Mobile Application}}}\textbar{}
+          %   \emph{Java, Kotlin, Android Studio, Google Firebase, Google Cloud Platform, JUnit, Git}
+
+          %   \resumeItemListStart
+          %       \resumeItem{Designed and developed an \textbf{Android application} for users to scan unique QR codes and compete with other online users, leveraging the ZXing library to integrate QR code detection functionality.}
+          %       \resumeItem{Implemented \textbf{camera functionality and QR code detection}, providing a scoring system and scalable storage options for the application. Addressed design challenges and \textbf{iteratively refined the UI} based on user feedback and \textbf{testing.}}
+          %       \resumeItem{Documented and tested the application using \textbf{Javadoc and JUnit}, ensuring comprehensive and clear guidance for future developers.}
+          % \resumeItemListEnd
+
+
+    \resumeSubHeadingListEnd
+
+\end{document}

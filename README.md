@@ -22,7 +22,7 @@
 
 ## 🏄 About Me
 
-<img align="right" alt="Coding by the Ocean" width="300" src="./assets/coding-ocean-pixel.png">
+<img align="right" alt="Coding by the Ocean" width="300" src="./assets/coding_ocean_pixel.png">
 
 <div>
 

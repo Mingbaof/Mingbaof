@@ -33,7 +33,6 @@ const mingbo = {
   hometown: "ZhuHai, Guangdong, China",
   location: "Edmonton, AB, Canada",
   industries: ["MedTech", "FinTech"],
-  vibe: "Ocean breeze & clean code",
 };
 ```
 

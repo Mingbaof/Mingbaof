@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Ocean wave header -->
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:023E8A,50:0077B6,100:48CAE4&height=200&section=header&text=Mingbo%20Feng&fontSize=42&fontColor=FFFFFF&animation=fadeIn&fontAlignY=35&desc=Software%20Developer%20%7C%20SQA%20Engineer&descSize=18&descAlignY=55&descColor=CAF0F8" width="100%"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:023E8A,50:0077B6,100:48CAE4&height=200&section=header&text=Mingbo%20Feng&fontSize=42&fontColor=FFFFFF&animation=fadeIn&fontAlignY=35&desc=Software%20Dev%20%7C%20Software%20QA&descSize=18&descAlignY=55&descColor=CAF0F8" width="100%"/>
 
 <!-- Dynamic typing SVG -->
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=28&duration=4000&pause=1000&color=0077B6&center=true&vCenter=true&multiline=true&repeat=true&random=false&width=800&height=100&lines=%F0%9F%8C%8A+From+the+Coast+of+ZhuHai;Building+Software+%7C+Riding+the+Waves+of+Code)](https://git.io/typing-svg)

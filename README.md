@@ -31,7 +31,7 @@ const mingbo = {
   education: "BSc Honors in Computing Science",
   school: "University of Alberta",
   hometown: "ZhuHai, Guangdong, China",
-  location: "Edmonton, AB, Canada",
+  location: "Toronto, ON, Canada",
   industries: ["MedTech", "FinTech"],
 };
 ```
